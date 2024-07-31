@@ -1,22 +1,22 @@
 package backend
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 func ValidateUser(p *User) error {
-	if len(p.Username) == 0 {
-		return errors.New("username cannot be empty")
+	fields := map[string]string{
+		"username":   p.Username,
+		"first name": p.FirstName,
+		"email":      p.Email,
+		"password":   p.Password,
 	}
 
-	if len(p.FirstName) == 0 {
-		return errors.New("first name cannot be empty")
-	}
-
-	if len(p.Email) == 0 {
-		return errors.New("email name cannot be empty")
-	}
-
-	if len(p.Password) == 0 {
-		return errors.New("password name cannot be empty")
+	for field, value := range fields {
+		if len(value) == 0 {
+			return errors.New(fmt.Sprintf("%s cannot be empty", field))
+		}
 	}
 
 	// TODO - make strength password checker
@@ -25,29 +25,30 @@ func ValidateUser(p *User) error {
 }
 
 func ValidateInvestment(p *Investment) error {
-	if p.PurchaseID == 0 {
-		return errors.New("purchase_id is required")
+	fields := map[string]interface{}{
+		"purchase_id":    p.PurchaseID,
+		"username":       p.Username,
+		"type":           p.Type,
+		"symbol":         p.Symbol,
+		"purchase_date":  p.PurchaseDate,
+		"quantity":       p.Quantity,
+		"purchase_price": p.PurchasePrice,
+		"total_cost":     p.TotalCost,
 	}
-	if p.Username == "" {
-		return errors.New("username is required")
+
+	for field, value := range fields {
+		switch v := value.(type) {
+		case int:
+			if v == 0 {
+				return errors.New(fmt.Sprintf("%s cannot be empty", field))
+			}
+		case string:
+			if len(v) == 0 {
+				return errors.New(fmt.Sprintf("%s cannot be empty", field))
+			}
+
+		}
 	}
-	if p.Type == "" {
-		return errors.New("type is required")
-	}
-	if p.Symbol == "" {
-		return errors.New("symbol is required")
-	}
-	if p.PurchaseDate == "" {
-		return errors.New("purchase_date is required")
-	}
-	if p.Quantity == 0 {
-		return errors.New("quantity is required")
-	}
-	if p.PurchasePrice == 0 {
-		return errors.New("purchase_price is required")
-	}
-	if p.TotalCost == 0 {
-		return errors.New("total_cost is required")
-	}
+
 	return nil
 }
