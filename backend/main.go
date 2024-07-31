@@ -3,7 +3,6 @@ package backend
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"encore.dev/storage/sqldb"
 )
@@ -38,36 +37,34 @@ func CreateUser(ctx context.Context, p *User) (*User, error) {
 	if err := ValidateUser(p); err != nil {
 		return nil, err
 	}
-	fmt.Println("after validation")
+
 	// Create User
 	_, err := db.Exec(ctx,
 		`INSERT INTO "user" (username, first_name, last_name, dob, email, password)
 		VALUES ($1, $2, $3, $4, $5, $6)`,
 		p.Username, p.FirstName, p.LastName, p.DOB, p.Email, p.Password)
-	fmt.Println("after INSERT")
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("after err check")
 
 	return p, nil
 }
 
 func ValidateUser(p *User) error {
 	if len(p.Username) == 0 {
-		return errors.New("Username cannot be empty.")
+		return errors.New("username cannot be empty")
 	}
 
 	if len(p.FirstName) == 0 {
-		return errors.New("First name cannot be empty.")
+		return errors.New("first name cannot be empty")
 	}
 
 	if len(p.Email) == 0 {
-		return errors.New("Email name cannot be empty.")
+		return errors.New("email name cannot be empty")
 	}
 
 	if len(p.Password) == 0 {
-		return errors.New("Password name cannot be empty.")
+		return errors.New("password name cannot be empty")
 	}
 
 	// TODO - make strength password checker
