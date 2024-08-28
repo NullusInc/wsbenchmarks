@@ -8,6 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: {
+          light: "#3b3b3b",
+          DEFAULT: "#121212",
+          dark: "#000000",
+        },
+        secondary: {
+          DEFAULT: "#f7f7f7",
+        },
+        accent: {
+          DEFAULT: "#3fc380",
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -17,4 +30,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;
