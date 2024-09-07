@@ -1,11 +1,18 @@
-import Link from "next/link"
-import { Mail, Lock, BarChart2 } from "lucide-react"
+"use client"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import Link from "next/link";
+import { Mail, Lock, Eye, EyeOff, BarChart2 } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-gray-800 p-8 rounded-xl shadow-2xl relative overflow-hidden">
@@ -19,50 +26,52 @@ export default function LoginPage() {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-400">
             Or{" "}
-            <Link href="/signup" className="font-medium text-red-500 hover:text-red-400 transition-colors">
+            <Link
+              href="/register"
+              className="font-medium text-red-500 hover:text-red-400 transition-colors"
+            >
               create a new account
             </Link>
           </p>
         </div>
+
         <form className="mt-8 space-y-6" action="#" method="POST">
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <Label htmlFor="email-address" className="sr-only">
-                Email address
-              </Label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-red-500" aria-hidden="true" />
-                </div>
-                <Input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="appearance-none rounded-t-md relative block w-full px-3 py-2 pl-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
-                  placeholder="Email address"
-                />
+            <div className="relative">
+              <Input
+                id="email-address"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="appearance-none rounded-lg relative block w-full px-3 py-2 mb-4 pl-3 pr-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
+                placeholder="Email address"
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <Mail className="h-5 w-5 text-red-500" aria-hidden="true" />
               </div>
             </div>
-            <div>
-              <Label htmlFor="password" className="sr-only">
-                Password
-              </Label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-red-500" aria-hidden="true" />
-                </div>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="appearance-none rounded-b-md relative block w-full px-3 py-2 pl-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
-                  placeholder="Password"
-                />
+
+            <div className="relative">
+              <Input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                required
+                className="appearance-none rounded-lg relative block w-full px-3 py-2 pl-3 pr-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
+                placeholder="Password"
+              />
+              <div
+                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? (
+                  <Eye className="h-5 w-5 text-red-500" aria-hidden="true" />
+                ) : (
+                  <EyeOff className="h-5 w-5 text-red-500" aria-hidden="true" />
+                )}
               </div>
             </div>
           </div>
@@ -75,13 +84,14 @@ export default function LoginPage() {
                 type="checkbox"
                 className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-700 rounded bg-gray-700"
               />
-              <Label htmlFor="remember-me" className="ml-2 block text-sm text-gray-400">
-                Remember me
-              </Label>
+              <span className="ml-2 block text-sm text-gray-400">Remember me</span>
             </div>
 
             <div className="text-sm">
-              <Link href="/forgot-password" className="font-medium text-red-500 hover:text-red-400 transition-colors">
+              <Link
+                href="/forgot-password"
+                className="font-medium text-red-500 hover:text-red-400 transition-colors"
+              >
                 Forgot your password?
               </Link>
             </div>
@@ -96,6 +106,7 @@ export default function LoginPage() {
             </Button>
           </div>
         </form>
+
       </div>
     </div>
   );

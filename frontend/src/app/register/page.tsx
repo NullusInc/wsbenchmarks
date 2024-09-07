@@ -1,11 +1,23 @@
-import Link from "next/link"
-import { BarChart2, User, Mail, Lock, Calendar } from "lucide-react"
+"use client"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import Link from "next/link";
+import { BarChart2, User, Mail, Eye, EyeOff } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 export default function RegisterPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword); // Toggle confirm password visibility
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-gray-800 p-8 rounded-xl shadow-2xl relative overflow-hidden">
@@ -27,99 +39,104 @@ export default function RegisterPage() {
         <form className="mt-8 space-y-6" action="#" method="POST">
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <Label htmlFor="first-name" className="sr-only">
-                  First name
-                </Label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-red-500" aria-hidden="true" />
-                  </div>
-                  <Input
-                    id="first-name"
-                    name="first-name"
-                    type="text"
-                    autoComplete="given-name"
-                    required
-                    className="appearance-none rounded-t-md relative block w-full px-3 py-2 pl-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
-                    placeholder="First name"
-                  />
+              <div className="relative">
+                <Input
+                  id="first-name"
+                  name="first-name"
+                  type="text"
+                  autoComplete="given-name"
+                  required
+                  className="appearance-none rounded-lg relative block w-full px-3 py-2 pl-3 pr-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
+                  placeholder="First name"
+                />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <User className="h-5 w-5 text-red-500" aria-hidden="true" />
                 </div>
               </div>
-              <div>
-                <Label htmlFor="last-name" className="sr-only">
-                  Last name
-                </Label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-red-500" aria-hidden="true" />
-                  </div>
-                  <Input
-                    id="last-name"
-                    name="last-name"
-                    type="text"
-                    autoComplete="family-name"
-                    required
-                    className="appearance-none rounded-t-md relative block w-full px-3 py-2 pl-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
-                    placeholder="Last name"
-                  />
+              <div className="relative">
+                <Input
+                  id="last-name"
+                  name="last-name"
+                  type="text"
+                  autoComplete="family-name"
+                  required
+                  className="appearance-none rounded-lg relative block w-full px-3 py-2 pl-3 pr-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
+                  placeholder="Last name"
+                />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <User className="h-5 w-5 text-red-500" aria-hidden="true" />
                 </div>
               </div>
             </div>
-            <div>
-              <Label htmlFor="email-address" className="sr-only">
-                Email address
-              </Label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-red-500" aria-hidden="true" />
-                </div>
-                <Input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
-                  placeholder="Email address"
-                />
+
+            <div className="relative">
+              <Input
+                id="email-address"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="appearance-none rounded-lg relative block w-full px-3 py-2 pl-3 mb-4 pr-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
+                placeholder="Email address"
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <Mail className="h-5 w-5 text-red-500" aria-hidden="true" />
               </div>
             </div>
-            <div>
-              <Label htmlFor="password" className="sr-only">
-                Password
-              </Label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-red-500" aria-hidden="true" />
-                </div>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
-                  placeholder="Password"
-                />
+
+            <div className="relative">
+              <Input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                required
+                className="appearance-none rounded-lg relative block w-full px-3 mb-4 py-2 pl-3 pr-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
+                placeholder="Password"
+              />
+              <div
+                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                onClick={togglePasswordVisibility}
+              >
+                {!showPassword ? (
+                  <EyeOff className="h-5 w-5 text-red-500" aria-hidden="true" />
+                ) : (
+                  <Eye className="h-5 w-5 text-red-500" aria-hidden="true" />
+                )}
               </div>
             </div>
-            <div>
-              <Label htmlFor="dob" className="sr-only">
-                Date of Birth
-              </Label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Calendar className="h-5 w-5 text-red-500" aria-hidden="true" />
-                </div>
-                <Input
-                  id="dob"
-                  name="dob"
-                  type="date"
-                  required
-                  className="appearance-none rounded-b-md relative block w-full px-3 py-2 pl-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
-                />
+
+            {/* Confirm Password input with toggle visibility */}
+            <div className="relative">
+              <Input
+                id="confirm-password"
+                name="confirm-password"
+                type={showConfirmPassword ? "text" : "password"}
+                autoComplete="new-password"
+                required
+                className="appearance-none rounded-lg relative block w-full px-3 mb-4 py-2 pl-3 pr-10 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
+                placeholder="Confirm Password"
+              />
+              <div
+                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                onClick={toggleConfirmPasswordVisibility}
+              >
+                {!showConfirmPassword ? (
+                  <EyeOff className="h-5 w-5 text-red-500" aria-hidden="true" />
+                ) : (
+                  <Eye className="h-5 w-5 text-red-500" aria-hidden="true" />
+                )}
               </div>
+            </div>
+
+            <div className="relative">
+              <Input
+                id="dob"
+                name="dob"
+                type="date"
+                required
+                className="appearance-lg rounded-b-md relative block w-full px-3 py-2 px-3 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
+              />
             </div>
           </div>
 
@@ -134,5 +151,5 @@ export default function RegisterPage() {
         </form>
       </div>
     </div>
-  )
+  );
 }
