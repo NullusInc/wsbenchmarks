@@ -1,9 +1,14 @@
+'use client'
+
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ArrowRight, BarChart2, Check, Lock, Share2, Star } from "lucide-react"
+import Link from 'next/link';
+
+
 
 export default function Home() {
   return (
@@ -167,9 +172,11 @@ export default function Home() {
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-6">Ready to Elevate Your Investment Strategy?</h2>
             <p className="mb-8">Create an account or log in to access your personalized dashboard and start benchmarking like a pro.</p>
-            <Button size="lg" className="bg-red-500 hover:bg-red-600 text-white">
-              Log In / Sign Up
-            </Button>
+            <Link href="/register">
+              <Button size="lg" className="bg-red-500 hover:bg-red-600 text-white">
+                Log In / Sign Up
+              </Button>
+            </Link>
           </div>
         </section>
       </main>
