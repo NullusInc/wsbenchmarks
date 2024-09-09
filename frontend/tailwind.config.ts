@@ -10,15 +10,15 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          light: "#3b3b3b",
-          DEFAULT: "#121212",
-          dark: "#000000",
+          light: "#374151",
+          DEFAULT: "#1f2937",
+          dark: "#111827",
         },
         secondary: {
-          DEFAULT: "#f7f7f7",
+          DEFAULT: "#ef4444",
         },
         accent: {
-          DEFAULT: "#3fc380",
+          DEFAULT: "#f59e0b",
         },
       },
       backgroundImage: {
