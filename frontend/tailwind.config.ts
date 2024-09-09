@@ -18,7 +18,7 @@ const config: Config = {
           DEFAULT: "#ef4444",
         },
         accent: {
-          DEFAULT: "#f59e0b",
+          DEFAULT: "#D1D5DB",
         },
       },
       backgroundImage: {

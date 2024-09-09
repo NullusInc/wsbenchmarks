@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { useState, useEffect, useRef } from 'react'
-import * as d3 from 'd3'
+import { useState, useEffect, useRef } from "react";
+import * as d3 from "d3";
 
 interface StockData {
   date: Date
@@ -10,10 +10,10 @@ interface StockData {
   symbol: string
 }
 
-type DateRange = '1D' | '1W' | '1M' | '3M' | '1Y' | 'ALL'
+type DateRange = "1D" | "1W" | "1M" | "3M" | "1Y" | "ALL";
 
-const stockSymbols = ['Stock A', 'Stock B']
-const colors = ['#4ade80', '#ef4444'] // green-400 and red-500 from Tailwind
+const stockSymbols = ["Stock A", "Stock B"]
+const colors = ["#4ade80", "#ef4444"]
 
 const generateDummyData = (days: number, symbol: string): StockData[] => {
   const data: StockData[] = []
@@ -34,19 +34,19 @@ const generateDummyData = (days: number, symbol: string): StockData[] => {
 }
 
 export default function StockGraph() {
-  const svgRef = useRef<SVGSVGElement>(null)
-  const [dateRange, setDateRange] = useState<DateRange>('1M')
-  const [data, setData] = useState<StockData[]>([])
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [dateRange, setDateRange] = useState<DateRange>("1M");
+  const [data, setData] = useState<StockData[]>([]);
 
   useEffect(() => {
     const daysMap: Record<DateRange, number> = {
-      '1D': 1, '1W': 7, '1M': 30, '3M': 90, '1Y': 365, 'ALL': 1825
+      "1D": 1, "1W": 7, "1M": 30, "3M": 90, "1Y": 365, "ALL": 1825
     }
     const newData = stockSymbols.flatMap(symbol => 
       generateDummyData(daysMap[dateRange], symbol)
-    )
-    setData(newData)
-  }, [dateRange])
+    );
+    setData(newData);
+  }, [dateRange]);
 
   useEffect(() => {
     if (data.length === 0) return
@@ -56,11 +56,11 @@ export default function StockGraph() {
     const height = 500 - margin.top - margin.bottom
 
     const svg = d3.select(svgRef.current)
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
       .html(null) // Clear previous content
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`)
 
     const xScale = d3.scaleTime()
       .domain(d3.extent(data, d => d.date) as [Date, Date])
@@ -81,65 +81,65 @@ export default function StockGraph() {
     const groupedData = d3.group(data, d => d.symbol)
 
     groupedData.forEach((stockData, symbol) => {
-      svg.append('path')
+      svg.append("path")
         .datum(stockData)
-        .attr('fill', 'none')
-        .attr('stroke', colorScale(symbol))
-        .attr('stroke-width', 2)
-        .attr('d', line)
+        .attr("fill", "none")
+        .attr("stroke", colorScale(symbol))
+        .attr("stroke-width", 2)
+        .attr("d", line)
     })
 
-    svg.append('g')
-      .attr('transform', `translate(0,${height})`)
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(xScale))
-      .attr('color', '#718096')
+      .attr("color", "#718096")
 
-    svg.append('g')
+    svg.append("g")
       .call(d3.axisLeft(yScale).tickFormat(d => `$${d}`))
-      .attr('color', '#718096')
+      .attr("color", "#718096")
 
-    svg.append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', 0 - margin.left)
-      .attr('x', 0 - (height / 2))
-      .attr('dy', '1em')
-      .style('text-anchor', 'middle')
-      .style('fill', '#E2E8F0')
-      .text('Total Invested Amount ($)')
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x", 0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .style("fill", "#E2E8F0")
+      .text("Total Invested Amount ($)")
 
-    const focus = svg.append('g')
-      .attr('class', 'focus')
-      .style('display', 'none')
+    const focus = svg.append("g")
+      .attr("class", "focus")
+      .style("display", "none")
 
-    focus.append('line')
-      .attr('class', 'x-hover-line hover-line')
-      .attr('y1', 0)
-      .attr('y2', height)
-      .style('stroke', '#718096')
-      .style('stroke-width', '1px')
-      .style('stroke-dasharray', '3,3')
+    focus.append("line")
+      .attr("class", "x-hover-line hover-line")
+      .attr("y1", 0)
+      .attr("y2", height)
+      .style("stroke", "#718096")
+      .style("stroke-width", "1px")
+      .style("stroke-dasharray", "3,3")
 
     stockSymbols.forEach((symbol, index) => {
-      focus.append('circle')
-        .attr('r', 5)
-        .attr('fill', colorScale(symbol))
-        .attr('class', `circle-${symbol.replace(' ', '-')}`)
+      focus.append("circle")
+        .attr("r", 5)
+        .attr("fill", colorScale(symbol))
+        .attr("class", `circle-${symbol.replace(" ", "-")}`)
 
-      focus.append('text')
-        .attr('class', `text-${symbol.replace(' ', '-')}`)
-        .attr('x', 15)
-        .attr('dy', `${1.2 + index * 1.2}em`)
-        .style('fill', colorScale(symbol))
+      focus.append("text")
+        .attr("class", `text-${symbol.replace(" ", "-")}`)
+        .attr("x", 15)
+        .attr("dy", `${1.2 + index * 1.2}em`)
+        .style("fill", colorScale(symbol))
     })
 
-    svg.append('rect')
-      .attr('width', width)
-      .attr('height', height)
-      .style('fill', 'none')
-      .style('pointer-events', 'all')
-      .on('mouseover', () => focus.style('display', null))
-      .on('mouseout', () => focus.style('display', 'none'))
-      .on('mousemove', mousemove)
+    svg.append("rect")
+      .attr("width", width)
+      .attr("height", height)
+      .style("fill", "none")
+      .style("pointer-events", "all")
+      .on("mouseover", () => focus.style("display", null))
+      .on("mouseout", () => focus.style("display", "none"))
+      .on("mousemove", mousemove)
 
     function mousemove(event: MouseEvent) {
       const bisect = d3.bisector((d: StockData) => d.date).left
@@ -152,34 +152,34 @@ export default function StockGraph() {
         const d1 = stockData[i]
         if (d0 && d1) {
           const d = x0.getTime() - d0.date.getTime() > d1.date.getTime() - x0.getTime() ? d1 : d0
-          focus.select(`.circle-${symbol.replace(' ', '-')}`)
-            .attr('transform', `translate(${xScale(d.date)},${yScale(d.value)})`)
-          focus.select(`.text-${symbol.replace(' ', '-')}`)
+          focus.select(`.circle-${symbol.replace(" ", "-")}`)
+            .attr("transform", `translate(${xScale(d.date)},${yScale(d.value)})`)
+          focus.select(`.text-${symbol.replace(" ", "-")}`)
             .text(`${symbol}: $${d.value.toFixed(2)} (${d.percentageGrowth.toFixed(2)}%)`)
-            .attr('transform', `translate(${xScale(d.date)},${yScale(d.value)})`)
+            .attr("transform", `translate(${xScale(d.date)},${yScale(d.value)})`)
         }
       })
 
-      focus.select('.x-hover-line').attr('transform', `translate(${d3.pointer(event)[0]},0)`)
+      focus.select(".x-hover-line").attr("transform", `translate(${d3.pointer(event)[0]},0)`)
     }
 
-  }, [data])
+  }, [data]);
 
   return (
     <div className="bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-gray-100">Stock Growth Comparison</h2>
       <svg ref={svgRef} className="w-full h-full"></svg>
-      <div className="mt-4 flex flex-wrap justify-center space-x-2 space-y-2">
-        {['1D', '1W', '1M', '3M', '1Y', 'ALL'].map((range) => (
-          <button
+      <div className="flex flex-row flex-nowrap p-1 rounded-3xl bg-primary-light justify-between items-center w-1/2 mx-auto">
+        {["1D", "1W", "1M", "3M", "1Y", "ALL"].map((range) => (
+          <div
             key={range}
             onClick={() => setDateRange(range as DateRange)}
             className={`px-3 py-1 rounded ${
-              dateRange === range ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'
+              dateRange === range ? "bg-secondary text-white" : " text-white"
             }`}
           >
             {range}
-          </button>
+          </div>
         ))}
       </div>
       <div className="mt-4 flex justify-center space-x-4">
@@ -191,5 +191,5 @@ export default function StockGraph() {
         ))}
       </div>
     </div>
-  )
+  );
 }
