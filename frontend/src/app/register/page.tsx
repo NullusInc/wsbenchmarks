@@ -135,7 +135,7 @@ export default function RegisterPage() {
                 name="dob"
                 type="date"
                 required
-                className="appearance-lg rounded-b-md relative block w-full px-3 py-2 px-3 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
+                className="appearance-lg rounded-b-md relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm bg-gray-700"
               />
             </div>
           </div>
