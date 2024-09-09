@@ -1,13 +1,23 @@
 "use client"
 
 import Link from "next/link";
-import { Mail, Lock, Eye, EyeOff, BarChart2 } from "lucide-react";
+import { Mail, Eye, EyeOff, BarChart2 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
 export default function LoginPage() {
+
   const [showPassword, setShowPassword] = useState(false);
+  const [inputs, setInputs] = useState<FormData>({
+    email: "",
+    password: "",
+  });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
